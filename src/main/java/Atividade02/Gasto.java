@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Gasto {
+    private int id;
     private String tipo;
     private LocalDate data;
     private double valor;
@@ -14,6 +15,7 @@ public class Gasto {
         this.valor = valor;
         this.formaDePagamento = formaDePagamento;
     }
+
     // Métodos Setters
     public void setTipo(String tipo) {
         this.tipo = tipo;
@@ -51,4 +53,13 @@ public class Gasto {
     public String getFormaDePagamento() {
         return formaDePagamento;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
+

@@ -40,6 +40,9 @@ public class MainView extends VerticalLayout {
     }
 
     private void setupAddGastoSection() {
+        //Adicionar o ID random
+        int numeroIdSelect = (int) (Math.random() * 1000);
+
         Select<String> tipoGastoSelect = new Select<>();
         tipoGastoSelect.setItems("Habitação", "Alimentação", "Transporte", "Lazer", "Outros");
         tipoGastoSelect.setLabel("Tipo de Gasto");
@@ -63,8 +66,9 @@ public class MainView extends VerticalLayout {
             updateGrid();
         });
 
-        add(tipoGastoSelect, dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
+        add(tipoGastoSelect,dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
     }
+
 
     private void openEditDialog(Gasto gasto) {
         editDialog.removeAll();
