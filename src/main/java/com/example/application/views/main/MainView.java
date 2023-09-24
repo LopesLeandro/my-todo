@@ -40,8 +40,7 @@ public class MainView extends VerticalLayout {
     }
 
     private void setupAddGastoSection() {
-        //Adicionar o ID random
-        int numeroIdSelect = (int) (Math.random() * 1000);
+
 
         Select<String> tipoGastoSelect = new Select<>();
         tipoGastoSelect.setItems("Habitação", "Alimentação", "Transporte", "Lazer", "Outros");

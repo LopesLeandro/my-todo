@@ -55,7 +55,9 @@ public class Gasto {
     }
 
     public int getId() {
-        return id;
+        //Add o ID random
+        int Id = (int) (Math.random() * 1000);
+        return Id;
     }
 
     public void setId(int id) {
