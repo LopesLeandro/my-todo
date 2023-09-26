@@ -1,4 +1,4 @@
-package com.example.application.views;
+package com.example.application.backend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,24 +59,24 @@ public class GastoRepository {
         }
     }
 
-//    public List<Gasto> getAll() {
-//        List<Gasto> gastos = new ArrayList<>();
-//        String sql = "SELECT * FROM despesas";
-//        try (Statement stmt = conexao.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-//            while (rs.next()) {
-//                Gasto gasto = new Gasto(
-//                        rs.getString("TIPO_PAGAMENTO"),
-//                        rs.getDate("DATA_DESPESA").toLocalDate(),
-//                        rs.getDouble("VALOR_DESPESA"),
-//                        rs.getDouble("TIPO_PAGAMENTO")
-//                );
-//                gastos.add(gasto);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return gastos;
-//    }
+    public List<Gasto> getAll() {
+        List<Gasto> gastos = new ArrayList<>();
+        String sql = "SELECT * FROM despesas";
+        try (Statement stmt = conexao.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Gasto gasto = new Gasto(
+                        rs.getString("TIPO_DESPESA"),
+                        rs.getDate("DATA_DESPESA").toLocalDate(),
+                        rs.getDouble("VALOR_DESPESA"),
+                        rs.getString("TIPO_PAGAMENTO")
+                );
+                gastos.add(gasto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gastos;
+    }
 
 //    public void delete(Gasto gasto) {
 //        String sql = "DELETE FROM despesas WHERE id = ?";

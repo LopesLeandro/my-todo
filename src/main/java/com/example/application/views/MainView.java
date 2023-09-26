@@ -1,31 +1,49 @@
 package com.example.application.views;
 
 import com.example.application.backend.Gasto;
+import com.example.application.backend.GastoRepository;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.component.grid.Grid;
+
+import java.util.List;
+
 
 @Route("")
 public class MainView extends VerticalLayout {
     GastoRepository gastoRepository = new GastoRepository();
-    Grid<Gasto> grid = new Grid<>(Gasto.class);
+    Grid<Gasto> grid = new Grid<>();
+
     private final Dialog editDialog = new Dialog();
 
     public MainView() {
-        add(new H1("Gestão Financeira"));
-        setupAddGastoSection();
+
+
+        add(
+                new H1("Gestão Financeira")
+
+        );
+
+        setupAddGastoSection(); // Adiciona a seção de adicionar gasto
+
+        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
+        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
+        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
+        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
+
+
 
         grid.addComponentColumn(gasto -> {
             Button deleteButton = new Button("Deletar", clickEvent -> {
 //                gastoRepository.delete(gasto);  // Comentei essa linha
-//                updateGrid();
+                updateGrid();
             });
 
             Button editButton = new Button("Editar", clickEvent -> openEditDialog(gasto));
@@ -33,11 +51,10 @@ public class MainView extends VerticalLayout {
         });
 
         add(grid);
-//        updateGrid();
+        updateGrid();
     }
 
     private void setupAddGastoSection() {
-
 
         Select<String> tipoGastoSelect = new Select<>();
         tipoGastoSelect.setItems("Habitação", "Alimentação", "Transporte", "Lazer", "Outros");
@@ -51,6 +68,7 @@ public class MainView extends VerticalLayout {
         formaPagamentoSelect.setLabel("Forma de Pagamento");
 
         Button addGastoButton = new Button("Adicionar Gasto");
+
         addGastoButton.addClickListener(e -> {
             Gasto gasto = new Gasto(
                     tipoGastoSelect.getValue(),
@@ -63,7 +81,14 @@ public class MainView extends VerticalLayout {
 //            updateGrid();
         });
 
-        add(tipoGastoSelect,dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
+        add(
+                tipoGastoSelect,
+                dataGastoPicker,
+                valorGastoField,
+                formaPagamentoSelect,
+                addGastoButton
+        ); // Adiciona os componentes na tela
+
     }
 
 
@@ -99,7 +124,20 @@ public class MainView extends VerticalLayout {
         editDialog.open();
     }
 
-//    private void updateGrid() {
-//        grid.setItems(gastoRepository.getAll());
-//    }
+    private void updateGrid() {
+        List<Gasto> gastos = gastoRepository.getAll(); // Suponha que você tenha um método getAll() que busca os gastos do banco de dados
+
+        // Limpa todas as colunas existentes no Grid
+        grid.removeAllColumns();
+
+        // Adiciona as colunas que deseja exibir
+        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
+        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
+        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
+        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
+
+        // Define os itens no Grid
+        grid.setItems(gastos);
+    }
+
 }
