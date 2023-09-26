@@ -37,9 +37,9 @@ public class Gasto {
     }
 
     // Método adicional para obter LocalDate
-    public LocalDate getLocalDate() {
-        return data;
-    }
+//    public LocalDate getLocalDate() {
+//        return data;
+//    }
     public String getTipo() {
         return tipo;
     }
@@ -56,15 +56,15 @@ public class Gasto {
         return formaDePagamento;
     }
 
-    public int getId() {
-        //Add o ID random
-        int Id = (int) (Math.random() * 1000);
-        return Id;
-    }
+//    public int getId() {
+//        //Add o ID random
+//        int Id = (int) (Math.random() * 1000);
+//        return Id;
+//    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     @Override
     public String toString() {

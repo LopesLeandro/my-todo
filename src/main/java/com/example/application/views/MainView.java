@@ -19,7 +19,7 @@ import java.util.List;
 @Route("")
 public class MainView extends VerticalLayout {
     GastoRepository gastoRepository = new GastoRepository();
-    Grid<Gasto> grid = new Grid<>();
+    Grid<Gasto> grid = new Grid<>(Gasto.class);
 
     private final Dialog editDialog = new Dialog();
 
@@ -33,22 +33,26 @@ public class MainView extends VerticalLayout {
 
         setupAddGastoSection(); // Adiciona a seção de adicionar gasto
 
-        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
-        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
-        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
-        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
+//        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
+//        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
+//        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
+//        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
 
 
 
         grid.addComponentColumn(gasto -> {
             Button deleteButton = new Button("Deletar", clickEvent -> {
-//                gastoRepository.delete(gasto);  // Comentei essa linha
+//                gastoRepository.delete(gasto);
                 updateGrid();
             });
-
             Button editButton = new Button("Editar", clickEvent -> openEditDialog(gasto));
-            return new HorizontalLayout(editButton, deleteButton);
-        });
+            HorizontalLayout buttonLayout = new HorizontalLayout(editButton, deleteButton);
+            buttonLayout.setAlignItems(Alignment.CENTER); // Ajuste a alinhamento dos botões
+
+            return buttonLayout;
+        }).setHeader("Ações");
+
+
 
         add(grid);
         updateGrid();
@@ -75,10 +79,11 @@ public class MainView extends VerticalLayout {
                     dataGastoPicker.getValue(),
                     valorGastoField.getValue(),
                     formaPagamentoSelect.getValue());
-            System.out.println(gasto);
+//            System.out.println(gasto);
             gastoRepository.addToDataBase(gasto);
+            updateGrid();
 
-//            updateGrid();
+
         });
 
         add(
@@ -101,7 +106,7 @@ public class MainView extends VerticalLayout {
         editTipoGastoSelect.setValue(gasto.getTipo());
 
         DatePicker editDataGastoPicker = new DatePicker("Data do Gasto");
-        editDataGastoPicker.setValue(gasto.getLocalDate()); // Usando o método getLocalDate
+        editDataGastoPicker.setValue(gasto.getData()); // Usando o método getLocalDate
 
         NumberField editValorGastoField = new NumberField("Valor do Gasto");
         editValorGastoField.setValue(gasto.getValor());
@@ -117,10 +122,16 @@ public class MainView extends VerticalLayout {
             gasto.setValor(editValorGastoField.getValue());
             gasto.setFormaDePagamento(editFormaPagamentoSelect.getValue());
             editDialog.close();
-//            updateGrid();
+            updateGrid();
         });
 
-        editDialog.add(editTipoGastoSelect, editDataGastoPicker, editValorGastoField, editFormaPagamentoSelect, saveButton);
+        editDialog.add(
+                editTipoGastoSelect,
+                editDataGastoPicker,
+                editValorGastoField,
+                editFormaPagamentoSelect,
+                saveButton
+        );
         editDialog.open();
     }
 
@@ -128,13 +139,13 @@ public class MainView extends VerticalLayout {
         List<Gasto> gastos = gastoRepository.getAll(); // Suponha que você tenha um método getAll() que busca os gastos do banco de dados
 
         // Limpa todas as colunas existentes no Grid
-        grid.removeAllColumns();
+//        grid.removeAllColumns();
 
-        // Adiciona as colunas que deseja exibir
-        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
-        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
-        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
-        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
+//        // Adiciona as colunas que deseja exibir
+//        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
+//        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
+//        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
+//        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
 
         // Define os itens no Grid
         grid.setItems(gastos);

@@ -35,25 +35,19 @@ public class GastoRepository {
                     "root",
                     "1234567"
             );
-            System.out.println("Conexão ao banco de dados estabelecida");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void addToDataBase(Gasto gasto) {
-        System.out.println("Adicionando gasto ao banco de dados");
         String sql = "INSERT INTO despesas (TIPO_DESPESA, DATA_DESPESA, VALOR_DESPESA, TIPO_PAGAMENTO) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setString(1, gasto.getTipo());
-            System.out.printf("Tipo adicionado: %s%n", gasto.getTipo());
-            stmt.setDate(2, Date.valueOf(gasto.getData()));
-            System.out.printf("Data adicionada: %s%n",Date.valueOf(gasto.getLocalDate()));
-            stmt.setDouble(3, gasto.getValor());
-            System.out.printf("Valor adicionado: %s%n", gasto.getValor());
-            stmt.setString(4, gasto.getFormaDePagamento());
-            System.out.printf("Forma de pagamento adicionada: %s%n", gasto.getFormaDePagamento());
-            stmt.executeUpdate();
+        try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+            ps.setString(1, gasto.getTipo());
+            ps.setDate(2, Date.valueOf(gasto.getData()));
+            ps.setDouble(3, gasto.getValor());
+            ps.setString(4, gasto.getFormaDePagamento());
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,7 +81,7 @@ public class GastoRepository {
 //            e.printStackTrace();
 //        }
 //    }
-//
+
 //    public void update(Gasto gasto) {
 //        String sql = "UPDATE Gastos SET tipo = ?, data = ?, valor = ?, formaPagamento = ? WHERE id = ?";
 //        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
