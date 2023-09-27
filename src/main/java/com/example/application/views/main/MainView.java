@@ -40,8 +40,7 @@ public class MainView extends VerticalLayout {
     }
 
     private void setupAddGastoSection() {
-
-
+        NumberField idGastoField = new NumberField("ID do Gasto");
         Select<String> tipoGastoSelect = new Select<>();
         tipoGastoSelect.setItems("Habitação", "Alimentação", "Transporte", "Lazer", "Outros");
         tipoGastoSelect.setLabel("Tipo de Gasto");
@@ -55,7 +54,9 @@ public class MainView extends VerticalLayout {
 
         Button addGastoButton = new Button("Adicionar Gasto");
         addGastoButton.addClickListener(e -> {
+            System.out.println("Antes do add gasto");
             Gasto gasto = new Gasto(
+                    0,
                     tipoGastoSelect.getValue(),
                     dataGastoPicker.getValue(),
                     valorGastoField.getValue(),
@@ -65,7 +66,7 @@ public class MainView extends VerticalLayout {
             updateGrid();
         });
 
-        add(tipoGastoSelect,dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
+        add(tipoGastoSelect, dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
     }
 
 
@@ -78,7 +79,7 @@ public class MainView extends VerticalLayout {
         editTipoGastoSelect.setValue(gasto.getTipo());
 
         DatePicker editDataGastoPicker = new DatePicker("Data do Gasto");
-        editDataGastoPicker.setValue(gasto.getLocalDate()); // Usando o método getLocalDate
+        editDataGastoPicker.setValue(gasto.getData()); // Usando o método getLocalDate
 
         NumberField editValorGastoField = new NumberField("Valor do Gasto");
         editValorGastoField.setValue(gasto.getValor());
@@ -93,8 +94,10 @@ public class MainView extends VerticalLayout {
             gasto.setData(editDataGastoPicker.getValue());
             gasto.setValor(editValorGastoField.getValue());
             gasto.setFormaDePagamento(editFormaPagamentoSelect.getValue());
+            gastoRepository.update(gasto);
             editDialog.close();
             updateGrid();
+
         });
 
         editDialog.add(editTipoGastoSelect, editDataGastoPicker, editValorGastoField, editFormaPagamentoSelect, saveButton);

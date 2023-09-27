@@ -58,7 +58,7 @@ public class Financeiro {
         System.out.println("Mês: " + selectedMonth.getMonth().toString() + "/" + selectedMonth.getYear());
 
         double totalGastos = gastos.stream()
-                .filter(gasto -> YearMonth.from(getLocalDateFromString(gasto.getData())).equals(selectedMonth))
+//                .filter(gasto -> YearMonth.from(getLocalDateFromString(gasto.getData())).equals(selectedMonth))
                 .mapToDouble(Gasto::getValor)
                 .sum();
 

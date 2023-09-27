@@ -1,33 +1,16 @@
 package com.example.application.views.main;
 
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import Atividade02.Gasto;
 
-//public class GastoRepository {
-//    private final List<Gasto> gastos = new ArrayList<>();
-//
-//    public void add(Gasto gasto) {
-//        gastos.add(gasto);
-//    }
-//
-//    public List<Gasto> getAll() {
-//        return new ArrayList<>(gastos);
-//    }
-//
-//    public void delete(Gasto gasto) {
-//        gastos.remove(gasto);
-//    }
-//
-//
-//}
+import static java.sql.Date.valueOf;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GastoRepository {
-
+    private final List<Gasto> gastos = new ArrayList<>();
     private Connection conexao;
 
     public GastoRepository() {
@@ -37,16 +20,43 @@ public class GastoRepository {
                     "root",
                     "@Ruth12345"
             );
+            System.out.println("Conexão ao banco de dados estabelecida");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    public List<Gasto> getAll() {
+        List<Gasto> gastos = new ArrayList<>();
+        String sql = "SELECT * FROM gastos";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String tipo = rs.getString("tipo");
+                LocalDate data = rs.getDate("data").toLocalDate();
+                double valor = rs.getDouble("valor");
+                String formaDePagamento = rs.getString("formaPagamento");
+
+                Gasto gasto = new Gasto(id, tipo, data, valor, formaDePagamento);
+                gastos.add(gasto);
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gastos;
+    }
+
+
     public void add(Gasto gasto) {
-        String sql = "INSERT INTO Gastos (tipo, data, valor, formaPagamento) VALUES (?, ?, ?, ?)";
+        System.out.println("Se imprimiu é porque chamou o método add");
+        String sql = "INSERT INTO gastos (tipo, data, valor, formaPagamento) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, gasto.getTipo());
-            stmt.setDate(2, Date.valueOf(gasto.getData()));
+            stmt.setDate(2, java.sql.Date.valueOf(gasto.getData()));
             stmt.setDouble(3, gasto.getValor());
             stmt.setString(4, gasto.getFormaDePagamento());
             stmt.executeUpdate();
@@ -55,27 +65,8 @@ public class GastoRepository {
         }
     }
 
-    public List<Gasto> getAll() {
-        List<Gasto> gastos = new ArrayList<>();
-        String sql = "SELECT * FROM Gastos";
-        try (Statement stmt = conexao.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                Gasto gasto = new Gasto(
-                        rs.getString("tipo"),
-                        rs.getDate("data").toLocalDate(),
-                        rs.getDouble("valor"),
-                        rs.getString("formaPagamento")
-                );
-                gastos.add(gasto);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return gastos;
-    }
-
     public void delete(Gasto gasto) {
-        String sql = "DELETE FROM Gastos WHERE id = ?";
+        String sql = "DELETE FROM gastos WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, gasto.getId());
             stmt.executeUpdate();
@@ -84,11 +75,11 @@ public class GastoRepository {
         }
     }
 
-    public void update(Gasto gasto) {
-        String sql = "UPDATE Gastos SET tipo = ?, data = ?, valor = ?, formaPagamento = ? WHERE id = ?";
+    public void update(Gasto gasto){
+        String sql = "UPDATE gastos SET tipo = ?, data = ?, valor = ?, formaPagamento = ? WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, gasto.getTipo());
-            stmt.setDate(2, Date.valueOf(gasto.getData()));
+            stmt.setDate(2, java.sql.Date.valueOf(gasto.getData()));
             stmt.setDouble(3, gasto.getValor());
             stmt.setString(4, gasto.getFormaDePagamento());
             stmt.setInt(5, gasto.getId());
@@ -98,5 +89,4 @@ public class GastoRepository {
         }
     }
 }
-
 

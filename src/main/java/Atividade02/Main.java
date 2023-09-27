@@ -40,7 +40,8 @@ public class Main {
                     System.out.println("Selecione a forma de pagamento: [Dinheiro] [Débito] [Crédito] [Pix]");
                     String formaDePagamento = scanner.nextLine();
 
-                    Gasto gasto = new Gasto(tipoGasto, dataGasto, valorGasto, formaDePagamento);
+                    int id = 0;
+                    Gasto gasto = new Gasto(id, tipoGasto, dataGasto, valorGasto, formaDePagamento);
                     financeiro.adicionarGasto(gasto);
                     break;
 

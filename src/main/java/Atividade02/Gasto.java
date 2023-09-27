@@ -1,6 +1,5 @@
 package Atividade02;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Gasto {
     private int id;
@@ -9,14 +8,17 @@ public class Gasto {
     private double valor;
     private String formaDePagamento;
 
-    public Gasto(String tipo, LocalDate data, double valor, String formaDePagamento) {
+    public Gasto(int id, String tipo, LocalDate data, double valor, String formaDePagamento) {
+        this.id = id;
         this.tipo = tipo;
         this.data = data;
         this.valor = valor;
         this.formaDePagamento = formaDePagamento;
     }
 
-    // Métodos Setters
+    public int getId() {
+        return id;
+    }
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -33,17 +35,11 @@ public class Gasto {
         this.formaDePagamento = formaDePagamento;
     }
 
-    // Método adicional para obter LocalDate
-    public LocalDate getLocalDate() {
+    public LocalDate getData() {
         return data;
     }
     public String getTipo() {
         return tipo;
-    }
-
-    public String getData() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return data.format(formatter);
     }
 
     public double getValor() {
@@ -53,15 +49,4 @@ public class Gasto {
     public String getFormaDePagamento() {
         return formaDePagamento;
     }
-
-    public int getId() {
-        //Add o ID random
-        int Id = (int) (Math.random() * 1000);
-        return Id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }
-
