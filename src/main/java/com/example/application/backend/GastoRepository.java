@@ -86,19 +86,19 @@ public class GastoRepository {
     }
 
 
-//    public void update(Gasto gasto) {
-//        String sql = "UPDATE Gastos SET tipo = ?, data = ?, valor = ?, formaPagamento = ? WHERE id = ?";
-//        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-//            stmt.setString(1, gasto.getTipo());
-//            stmt.setDate(2, Date.valueOf(gasto.getData()));
-//            stmt.setDouble(3, gasto.getValor());
-//            stmt.setString(4, gasto.getFormaDePagamento());
-//            stmt.setInt(5, gasto.getId());
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void update(Gasto gasto) {
+        String sql = "UPDATE despesas SET TIPO_DESPESA = ?, DATA_DESPESA = ?, VALOR_DESPESA = ?, TIPO_PAGAMENTO = ? WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, gasto.getTipo());
+            stmt.setDate(2, Date.valueOf(gasto.getData()));
+            stmt.setDouble(3, gasto.getValor());
+            stmt.setString(4, gasto.getFormaDePagamento());
+            stmt.setInt(5, gasto.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

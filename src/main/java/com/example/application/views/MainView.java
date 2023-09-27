@@ -33,18 +33,12 @@ public class MainView extends VerticalLayout {
 
         setupAddGastoSection(); // Adiciona a seção de adicionar gasto
 
-//        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
-//        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
-//        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
-//        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
-
-
-
         grid.addComponentColumn(gasto -> {
             Button deleteButton = new Button("Deletar", clickEvent -> {
                 gastoRepository.delete(gasto);
                 updateGrid();
             });
+
             Button editButton = new Button("Editar", clickEvent -> openEditDialog(gasto));
             HorizontalLayout buttonLayout = new HorizontalLayout(editButton, deleteButton);
             buttonLayout.setAlignItems(Alignment.CENTER); // Ajuste a alinhamento dos botões
@@ -107,7 +101,7 @@ public class MainView extends VerticalLayout {
         editTipoGastoSelect.setValue(gasto.getTipo());
 
         DatePicker editDataGastoPicker = new DatePicker("Data do Gasto");
-        editDataGastoPicker.setValue(gasto.getData()); // Usando o método getLocalDate
+        editDataGastoPicker.setValue(gasto.getData());
 
         NumberField editValorGastoField = new NumberField("Valor do Gasto");
         editValorGastoField.setValue(gasto.getValor());
@@ -122,6 +116,7 @@ public class MainView extends VerticalLayout {
             gasto.setData(editDataGastoPicker.getValue());
             gasto.setValor(editValorGastoField.getValue());
             gasto.setFormaDePagamento(editFormaPagamentoSelect.getValue());
+            gastoRepository.update(gasto);
             editDialog.close();
             updateGrid();
         });
