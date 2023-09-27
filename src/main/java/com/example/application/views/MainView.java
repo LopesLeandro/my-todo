@@ -31,8 +31,6 @@ public class MainView extends VerticalLayout {
         add(
                 new H1("Gestão Financeira"),
                 observarDespesasLink
-
-
         );
 
         setupAddGastoSection(); // Adiciona a seção de adicionar gasto
@@ -49,8 +47,6 @@ public class MainView extends VerticalLayout {
 
             return buttonLayout;
         }).setHeader("Ações");
-
-
 
         add(grid);
         updateGrid();
@@ -136,18 +132,7 @@ public class MainView extends VerticalLayout {
     }
 
     private void updateGrid() {
-        List<Gasto> gastos = gastoRepository.getAll(); // Suponha que você tenha um método getAll() que busca os gastos do banco de dados
-
-        // Limpa todas as colunas existentes no Grid
-//        grid.removeAllColumns();
-
-//        // Adiciona as colunas que deseja exibir
-//        grid.addColumn(Gasto::getTipo).setHeader("Tipo de Gasto");
-//        grid.addColumn(Gasto::getData).setHeader("Data do Gasto");
-//        grid.addColumn(Gasto::getValor).setHeader("Valor do Gasto");
-//        grid.addColumn(Gasto::getFormaDePagamento).setHeader("Forma de Pagamento");
-
-        // Define os itens no Grid
+        List<Gasto> gastos = gastoRepository.getAll();
         grid.setItems(gastos);
     }
 
