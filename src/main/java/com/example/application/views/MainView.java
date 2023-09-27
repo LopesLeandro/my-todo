@@ -12,6 +12,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 
 import java.util.List;
 
@@ -23,11 +24,14 @@ public class MainView extends VerticalLayout {
 
     private final Dialog editDialog = new Dialog();
 
+    RouterLink observarDespesasLink = new RouterLink("Observar Despesas", ObservarDespesasView.class);
+
     public MainView() {
 
-
         add(
-                new H1("Gestão Financeira")
+                new H1("Gestão Financeira"),
+                observarDespesasLink
+
 
         );
 

@@ -99,6 +99,34 @@ public class GastoRepository {
             e.printStackTrace();
         }
     }
+
+
+    public List<Gasto> getByTipoGasto(String tipoGasto) {
+        List<Gasto> gastos = new ArrayList<>();
+        String sql = "SELECT * FROM despesas WHERE TIPO_DESPESA = ?";
+
+        try (PreparedStatement preparedStatement = conexao.prepareStatement(sql)) {
+            preparedStatement.setString(1, tipoGasto);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Gasto gasto = new Gasto(
+                        resultSet.getInt("id"),
+                        resultSet.getString("TIPO_DESPESA"),
+                        resultSet.getDate("DATA_DESPESA").toLocalDate(),
+                        resultSet.getDouble("VALOR_DESPESA"),
+                        resultSet.getString("TIPO_PAGAMENTO")
+                );
+                gastos.add(gasto);
+            }
+
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return gastos;
+    }
 }
 
 
