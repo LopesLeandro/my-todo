@@ -42,7 +42,7 @@ public class MainView extends VerticalLayout {
 
         grid.addComponentColumn(gasto -> {
             Button deleteButton = new Button("Deletar", clickEvent -> {
-                gastoRepository.deleteById(gasto.getId());
+                gastoRepository.delete(gasto);
                 updateGrid();
             });
             Button editButton = new Button("Editar", clickEvent -> openEditDialog(gasto));

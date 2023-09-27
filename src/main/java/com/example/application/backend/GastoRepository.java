@@ -75,19 +75,16 @@ public class GastoRepository {
         return gastos;
     }
 
-//    public void delete(Gasto gasto) {
-//        String sql = "DELETE FROM despesas WHERE id = ?";
-//        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-//            stmt.setInt(1, gasto.getId());
-//            stmt.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    public void deleteById(int id) {
-        gastos.removeIf(gasto -> gasto.getId() == id);
+    public void delete(Gasto gasto) {
+        String sql = "DELETE FROM despesas WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, gasto.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
 //    public void update(Gasto gasto) {
 //        String sql = "UPDATE Gastos SET tipo = ?, data = ?, valor = ?, formaPagamento = ? WHERE id = ?";
