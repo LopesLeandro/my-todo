@@ -26,8 +26,6 @@ import java.sql.*;
 
 public class GastoRepository {
 
-    private List<Gasto> gastos = new ArrayList<>();
-
     private Connection conexao;
 
     public GastoRepository() {
