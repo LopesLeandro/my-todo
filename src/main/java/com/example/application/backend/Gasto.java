@@ -1,9 +1,6 @@
 package com.example.application.backend;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Gasto {
     private int id;
@@ -41,10 +38,6 @@ public class Gasto {
         this.formaDePagamento = formaDePagamento;
     }
 
-    // Método adicional para obter LocalDate
-//    public LocalDate getLocalDate() {
-//        return data;
-//    }
     public String getTipo() {
         return tipo;
     }
@@ -60,16 +53,6 @@ public class Gasto {
     public String getFormaDePagamento() {
         return formaDePagamento;
     }
-
-//    public int getId() {
-//        //Add o ID random
-//        int Id = (int) (Math.random() * 1000);
-//        return Id;
-//    }
-
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 
     @Override
     public String toString() {
