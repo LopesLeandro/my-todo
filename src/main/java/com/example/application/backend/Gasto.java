@@ -12,11 +12,16 @@ public class Gasto {
     private double valor;
     private String formaDePagamento;
 
-    public Gasto(String tipo, LocalDate data, double valor, String formaDePagamento) {
+    public Gasto(int id, String tipo, LocalDate data, double valor, String formaDePagamento) {
+        this.id = id;
         this.tipo = tipo;
         this.data = data;
         this.valor = valor;
         this.formaDePagamento = formaDePagamento;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     // Métodos Setters

@@ -26,6 +26,8 @@ import java.sql.*;
 
 public class GastoRepository {
 
+    private List<Gasto> gastos = new ArrayList<>();
+
     private Connection conexao;
 
     public GastoRepository() {
@@ -59,6 +61,7 @@ public class GastoRepository {
         try (Statement stmt = conexao.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Gasto gasto = new Gasto(
+                        rs.getInt("id"),
                         rs.getString("TIPO_DESPESA"),
                         rs.getDate("DATA_DESPESA").toLocalDate(),
                         rs.getDouble("VALOR_DESPESA"),
@@ -81,6 +84,10 @@ public class GastoRepository {
 //            e.printStackTrace();
 //        }
 //    }
+
+    public void deleteById(int id) {
+        gastos.removeIf(gasto -> gasto.getId() == id);
+    }
 
 //    public void update(Gasto gasto) {
 //        String sql = "UPDATE Gastos SET tipo = ?, data = ?, valor = ?, formaPagamento = ? WHERE id = ?";
