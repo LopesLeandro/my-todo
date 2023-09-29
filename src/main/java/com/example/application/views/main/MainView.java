@@ -13,6 +13,9 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.grid.Grid;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Route("")
 public class MainView extends VerticalLayout {
 
@@ -23,6 +26,7 @@ public class MainView extends VerticalLayout {
 
     public MainView() {
         add(new H1("Gestão Financeira"));
+        botaoRelatorio();
         setupAddGastoSection();
 
         grid.addComponentColumn(gasto -> {
@@ -69,6 +73,12 @@ public class MainView extends VerticalLayout {
         add(tipoGastoSelect, dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
     }
 
+    private void botaoRelatorio() {
+        Button reportButton = new Button("Relatório", e -> {
+            getUI().ifPresent(ui -> ui.navigate("SecondView"));
+        });
+        add(reportButton);
+    }
 
     private void openEditDialog(Gasto gasto) {
         editDialog.removeAll();
@@ -104,7 +114,11 @@ public class MainView extends VerticalLayout {
         editDialog.open();
     }
 
+
+
     private void updateGrid() {
         grid.setItems(gastoRepository.getAll());
     }
+
+
 }
