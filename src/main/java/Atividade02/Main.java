@@ -55,17 +55,17 @@ public class Main {
                     System.out.println("Informe o valor: R$");
                     double valorGanho = scanner.nextDouble();
                     scanner.nextLine();
-
-                    Ganho ganho = new Ganho(tipoGanho, dataGanho, valorGanho);
+                    int idG = 0;
+                    Ganho ganho = new Ganho(idG,tipoGanho, dataGanho, valorGanho);
                     financeiro.adicionarGanho(ganho);
                     break;
 
                 case 3:
-                    financeiro.relatorioGastos();
+//                    financeiro.relatorioGastos();
                     break;
 
                 case 4:
-                    financeiro.relatorioGanhos();
+//                    financeiro.relatorioGanhos();
                     break;
 
                 case 5:
@@ -73,7 +73,7 @@ public class Main {
                     String monthYearInput = scanner.nextLine();
                     DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MM/yyyy");
                     YearMonth selectedMonth = YearMonth.parse(monthYearInput, monthYearFormatter);
-                    financeiro.relatorioMensal(selectedMonth);
+//                    financeiro.relatorioMensal(selectedMonth);
                     break;
 
                 case 6:

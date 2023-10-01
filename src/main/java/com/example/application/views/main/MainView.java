@@ -1,5 +1,6 @@
 package com.example.application.views.main;
-
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import Atividade02.Financeiro;
 import Atividade02.Gasto;
 import com.vaadin.flow.component.button.Button;
@@ -25,8 +26,9 @@ public class MainView extends VerticalLayout {
     private final Dialog editDialog = new Dialog();
 
     public MainView() {
-        add(new H1("Gestão Financeira"));
-        botaoRelatorio();
+        ViewUtils ViewUtils = new ViewUtils();
+        add(new H1("Gestão Financeira - Gastos"));
+        add(ViewUtils.criarBotaoTopo());
         setupAddGastoSection();
 
         grid.addComponentColumn(gasto -> {
@@ -73,12 +75,26 @@ public class MainView extends VerticalLayout {
         add(tipoGastoSelect, dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
     }
 
-    private void botaoRelatorio() {
-        Button reportButton = new Button("Relatório", e -> {
+    //Add a button called Relatorio and another button called Ganho to the main view side by side
+    public class ViewUtils {
+        public HorizontalLayout criarBotaoTopo() {
+            Button relatorioButton = new Button("Relatório", e -> {
             getUI().ifPresent(ui -> ui.navigate("SecondView"));
-        });
-        add(reportButton);
+            });
+            Button ganhoButton = new Button("Ganho", e -> {
+                getUI().ifPresent(ui -> ui.navigate("ganhos"));
+            });
+            Button gastoButton = new Button("Gasto", e -> {
+                getUI().ifPresent(ui -> ui.navigate(""));
+            });
+            HorizontalLayout buttonLayout = new HorizontalLayout();
+            buttonLayout.add(relatorioButton, ganhoButton, gastoButton);
+
+            return buttonLayout;
+        }
     }
+
+
 
     private void openEditDialog(Gasto gasto) {
         editDialog.removeAll();
