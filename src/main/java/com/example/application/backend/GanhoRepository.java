@@ -1,7 +1,5 @@
 package com.example.application.backend;
 
-import Atividade02.Ganho;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,4 +1,5 @@
-package Atividade02;
+package com.example.application.backend;
+import com.example.application.backend.Ganho;
 import com.example.application.backend.Gasto;
 
 import java.util.ArrayList;
