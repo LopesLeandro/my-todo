@@ -1,4 +1,4 @@
-package com.example.application.views.main;
+package com.example.application.views;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

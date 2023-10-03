@@ -1,21 +1,16 @@
-package com.example.application.views.main;
+package com.example.application.views;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import Atividade02.Financeiro;
 import Atividade02.Gasto;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.grid.Grid;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Route("")
 public class MainView extends VerticalLayout {
