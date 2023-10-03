@@ -1,10 +1,9 @@
-package com.example.application.views.main;
+package com.example.application.backend;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import Atividade02.Gasto;
 
 import static java.sql.Date.valueOf;
 

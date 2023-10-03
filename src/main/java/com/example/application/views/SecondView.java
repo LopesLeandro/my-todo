@@ -1,8 +1,8 @@
-package com.example.application.views.main;
+package com.example.application.views;
 
-import Atividade02.Gasto;
+import com.example.application.backend.Gasto;
 //import com.example.application.utils.ViewUtils;
-import com.example.application.views.main.GastoRepository;
+import com.example.application.backend.GastoRepository;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
@@ -11,7 +11,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.html.Span;
 
-import javax.swing.text.View;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;

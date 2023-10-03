@@ -1,7 +1,6 @@
-package com.example.application.views.main;
+package com.example.application.backend;
 
 import Atividade02.Ganho;
-import Atividade02.Gasto;
 
 import java.sql.*;
 import java.time.LocalDate;
