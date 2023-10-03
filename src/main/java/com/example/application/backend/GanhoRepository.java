@@ -1,7 +1,5 @@
 package com.example.application.backend;
 
-import Atividade02.Ganho;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class GanhoRepository {
             conexao = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/BancoFinanceiro",
                     "root",
-                    "@Ruth12345"
+                    "1234567"
             );
             System.out.println("Conexão ao banco de dados estabelecida");
         } catch (SQLException e) {

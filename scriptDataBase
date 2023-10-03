@@ -1,0 +1,21 @@
+create database BancoFinanceiro;
+use BancoFinanceiro;
+
+create table ganhos
+(
+    id    int auto_increment
+        primary key,
+    tipo  varchar(100) not null,
+    data  date         not null,
+    valor int          not null
+);
+
+create table gastos
+(
+    id             int auto_increment
+        primary key,
+    tipo           varchar(100) not null,
+    data           date         not null,
+    valor          int          not null,
+    formaPagamento varchar(100) not null
+);

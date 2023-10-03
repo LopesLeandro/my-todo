@@ -1,8 +1,9 @@
 package com.example.application.views;
+import com.example.application.backend.Financeiro;
 import com.example.application.backend.GastoRepository;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import Atividade02.Financeiro;
+
 import com.example.application.backend.Gasto;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
