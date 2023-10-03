@@ -17,7 +17,7 @@ public class GanhoRepository {
             conexao = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/BancoFinanceiro",
                     "root",
-                    "@Ruth12345"
+                    "1234567"
             );
             System.out.println("Conexão ao banco de dados estabelecida");
         } catch (SQLException e) {
