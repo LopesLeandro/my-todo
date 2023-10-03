@@ -1,5 +1,6 @@
 package com.example.application.views.main;
-
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import Atividade02.Financeiro;
 import Atividade02.Gasto;
 import com.vaadin.flow.component.button.Button;
@@ -13,6 +14,9 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.grid.Grid;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Route("")
 public class MainView extends VerticalLayout {
 
@@ -22,7 +26,9 @@ public class MainView extends VerticalLayout {
     private final Dialog editDialog = new Dialog();
 
     public MainView() {
-        add(new H1("Gestão Financeira"));
+        ViewUtils ViewUtils = new ViewUtils();
+        add(new H1("Gestão Financeira - Gastos"));
+        add(ViewUtils.criarBotaoTopo());
         setupAddGastoSection();
 
         grid.addComponentColumn(gasto -> {
@@ -40,8 +46,7 @@ public class MainView extends VerticalLayout {
     }
 
     private void setupAddGastoSection() {
-
-
+        NumberField idGastoField = new NumberField("ID do Gasto");
         Select<String> tipoGastoSelect = new Select<>();
         tipoGastoSelect.setItems("Habitação", "Alimentação", "Transporte", "Lazer", "Outros");
         tipoGastoSelect.setLabel("Tipo de Gasto");
@@ -55,7 +60,9 @@ public class MainView extends VerticalLayout {
 
         Button addGastoButton = new Button("Adicionar Gasto");
         addGastoButton.addClickListener(e -> {
+            System.out.println("Antes do add gasto");
             Gasto gasto = new Gasto(
+                    0,
                     tipoGastoSelect.getValue(),
                     dataGastoPicker.getValue(),
                     valorGastoField.getValue(),
@@ -65,8 +72,28 @@ public class MainView extends VerticalLayout {
             updateGrid();
         });
 
-        add(tipoGastoSelect,dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
+        add(tipoGastoSelect, dataGastoPicker, valorGastoField, formaPagamentoSelect, addGastoButton);
     }
+
+    //Add a button called Relatorio and another button called Ganho to the main view side by side
+    public class ViewUtils {
+        public HorizontalLayout criarBotaoTopo() {
+            Button relatorioButton = new Button("Relatório", e -> {
+            getUI().ifPresent(ui -> ui.navigate("SecondView"));
+            });
+            Button ganhoButton = new Button("Ganho", e -> {
+                getUI().ifPresent(ui -> ui.navigate("ganhos"));
+            });
+            Button gastoButton = new Button("Gasto", e -> {
+                getUI().ifPresent(ui -> ui.navigate(""));
+            });
+            HorizontalLayout buttonLayout = new HorizontalLayout();
+            buttonLayout.add(relatorioButton, ganhoButton, gastoButton);
+
+            return buttonLayout;
+        }
+    }
+
 
 
     private void openEditDialog(Gasto gasto) {
@@ -78,7 +105,7 @@ public class MainView extends VerticalLayout {
         editTipoGastoSelect.setValue(gasto.getTipo());
 
         DatePicker editDataGastoPicker = new DatePicker("Data do Gasto");
-        editDataGastoPicker.setValue(gasto.getLocalDate()); // Usando o método getLocalDate
+        editDataGastoPicker.setValue(gasto.getData()); // Usando o método getLocalDate
 
         NumberField editValorGastoField = new NumberField("Valor do Gasto");
         editValorGastoField.setValue(gasto.getValor());
@@ -93,15 +120,21 @@ public class MainView extends VerticalLayout {
             gasto.setData(editDataGastoPicker.getValue());
             gasto.setValor(editValorGastoField.getValue());
             gasto.setFormaDePagamento(editFormaPagamentoSelect.getValue());
+            gastoRepository.update(gasto);
             editDialog.close();
             updateGrid();
+
         });
 
         editDialog.add(editTipoGastoSelect, editDataGastoPicker, editValorGastoField, editFormaPagamentoSelect, saveButton);
         editDialog.open();
     }
 
+
+
     private void updateGrid() {
         grid.setItems(gastoRepository.getAll());
     }
+
+
 }
