@@ -1,11 +1,8 @@
 package Atividade02;
+import com.example.application.backend.Gasto;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.util.Map;
-import java.util.HashMap;
-import java.time.format.DateTimeFormatter;
 
 public class Financeiro {
     private List<Gasto> gastos;

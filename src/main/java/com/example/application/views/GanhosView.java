@@ -2,6 +2,7 @@ package com.example.application.views;
 
 import Atividade02.Financeiro;
 import Atividade02.Ganho;
+import com.example.application.backend.GanhoRepository;
 import com.vaadin.flow.component.avatar.AvatarGroup;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;

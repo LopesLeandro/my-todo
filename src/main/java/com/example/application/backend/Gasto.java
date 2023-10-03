@@ -1,4 +1,4 @@
-package Atividade02;
+package com.example.application.backend;
 import java.time.LocalDate;
 
 public class Gasto {

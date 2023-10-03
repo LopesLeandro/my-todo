@@ -1,4 +1,4 @@
-package com.example.application.views;
+package com.example.application.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ public class Conexao {
         Connection conexao = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/BancoFinanceiro", "root", "@Ruth12345");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/BancoFinanceiro", "root", "1234567");
             ResultSet rsBanco = conexao.createStatement().executeQuery("SELECT * FROM Gastos");
             while (rsBanco.next()) {
                 System.out.println(rsBanco.getString("tipo"));

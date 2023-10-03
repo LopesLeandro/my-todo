@@ -1,21 +1,18 @@
-package com.example.application.views;
-
-import Atividade02.Ganho;
-import Atividade02.Gasto;
+package com.example.application.backend;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class GanhoRepository {
-    private final List<Ganho> ganhos = new ArrayList<>();
-    public static Connection conexao;
+import static java.sql.Date.valueOf;
 
 
+public class GastoRepository {
+    private final List<Gasto> gastos = new ArrayList<>();
+    public Connection conexao;
 
-    public GanhoRepository() {
+    public GastoRepository() {
         try {
             conexao = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/BancoFinanceiro",
@@ -28,9 +25,9 @@ public class GanhoRepository {
         }
     }
 
-    public static List<Ganho> getAll() {
-        List<Ganho> ganhos = new ArrayList<>();
-        String sql = "SELECT * FROM ganhos";
+    public List<Gasto> getAll() {
+        List<Gasto> gastos = new ArrayList<>();
+        String sql = "SELECT * FROM gastos";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -39,50 +36,52 @@ public class GanhoRepository {
                 String tipo = rs.getString("tipo");
                 LocalDate data = rs.getDate("data").toLocalDate();
                 double valor = rs.getDouble("valor");
+                String formaDePagamento = rs.getString("formaPagamento");
 
-                Ganho ganho = new Ganho(id, tipo, data, valor);
-                ganhos.add(ganho);
+                Gasto gasto = new Gasto(id, tipo, data, valor, formaDePagamento);
+                gastos.add(gasto);
             }
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ganhos;
+        return gastos;
     }
 
 
-    public void add(Ganho ganhos) {
+    public void add(Gasto gasto) {
         System.out.println("Se imprimiu é porque chamou o método add");
-        String sql = "INSERT INTO ganhos (id, tipo, data, valor) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO gastos (tipo, data, valor, formaPagamento) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, ganhos.getId());
-            stmt.setString(2, ganhos.getTipo());
-            stmt.setDate(3, Date.valueOf(ganhos.getData()));
-            stmt.setDouble(4, ganhos.getValor());
+            stmt.setString(1, gasto.getTipo());
+            stmt.setDate(2, java.sql.Date.valueOf(gasto.getData()));
+            stmt.setDouble(3, gasto.getValor());
+            stmt.setString(4, gasto.getFormaDePagamento());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(Ganho ganhos) {
-        String sql = "DELETE FROM ganhos WHERE id = ?";
+    public void delete(Gasto gasto) {
+        String sql = "DELETE FROM gastos WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, ganhos.getId());
+            stmt.setInt(1, gasto.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void update(Ganho ganhos){
-        String sql = "UPDATE ganhos SET tipo = ?, data = ?, valor = ? WHERE id = ?";
+    public void update(Gasto gasto){
+        String sql = "UPDATE gastos SET tipo = ?, data = ?, valor = ?, formaPagamento = ? WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setString(1, ganhos.getTipo());
-            stmt.setDate(2, Date.valueOf(ganhos.getData()));
-            stmt.setDouble(3, ganhos.getValor());
-            stmt.setInt(5, ganhos.getId());
+            stmt.setString(1, gasto.getTipo());
+            stmt.setDate(2, java.sql.Date.valueOf(gasto.getData()));
+            stmt.setDouble(3, gasto.getValor());
+            stmt.setString(4, gasto.getFormaDePagamento());
+            stmt.setInt(5, gasto.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
