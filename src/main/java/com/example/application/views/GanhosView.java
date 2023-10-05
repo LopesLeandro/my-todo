@@ -54,10 +54,6 @@ public class GanhosView extends VerticalLayout {
         DatePicker dataGanhoPicker = new DatePicker("Data do Ganho");
         NumberField valorGanhoField = new NumberField("Valor do Ganho");
 
-//        Select<String> formaPagamentoSelect = new Select<>();
-//        formaPagamentoSelect.setItems("Dinheiro", "Débito", "Crédito", "Pix");
-//        formaPagamentoSelect.setLabel("Forma de Pagamento");
-
         Button addGanhoButton = new Button("Adicionar Ganho");
         addGanhoButton.addClickListener(e -> {
             Ganho ganhos = new Ganho(
@@ -65,7 +61,6 @@ public class GanhosView extends VerticalLayout {
                     tipoGanhosSelect.getValue(),
                     dataGanhoPicker.getValue(),
                     valorGanhoField.getValue());
-//                    formaPagamentoSelect.getValue());
             financeiro.adicionarGanho(ganhos);
             ganhoRepository.add(ganhos);
             updateGrid();
@@ -74,7 +69,7 @@ public class GanhosView extends VerticalLayout {
         add(tipoGanhosSelect, dataGanhoPicker, valorGanhoField, addGanhoButton);
     }
 
-    //Add a button called Relatorio and another button called Ganho to the main view side by side
+
     public class ViewUtils {
         public HorizontalLayout criarBotaoTopo() {
             Button relatorioButton = new Button("Relatório", e -> {
@@ -98,10 +93,10 @@ public class GanhosView extends VerticalLayout {
     private void openEditDialog(Ganho ganhos) {
         editDialog.removeAll();
 
-        Select<String> editTipoGastoSelect = new Select<>();
-//        editTipoGanhosSelect.setItems("Salário", "Investimento", "Outros");
-//        editTipoGanhosSelect.setLabel("Tipo de Ganho");
-//        editTipoGanhosSelect.setValue(ganhos.getTipo());
+        Select<String> editTipoGanhosSelect = new Select<>();
+        editTipoGanhosSelect.setItems("Salário", "Investimento", "Outros");
+        editTipoGanhosSelect.setLabel("Tipo de Ganho");
+        editTipoGanhosSelect.setValue(ganhos.getTipo());
 
         DatePicker editDataGanhoPicker = new DatePicker("Data do Ganhos");
         editDataGanhoPicker.setValue(ganhos.getData()); // Usando o método getLocalDate
@@ -111,7 +106,7 @@ public class GanhosView extends VerticalLayout {
 
 
         Button saveButton = new Button("Salvar", e -> {
-            ganhos.setTipo(editTipoGastoSelect.getValue());
+            ganhos.setTipo(editTipoGanhosSelect.getValue());
             ganhos.setData(editDataGanhoPicker.getValue());
             ganhos.setValor(editValorGanhoField.getValue());
 
@@ -121,7 +116,7 @@ public class GanhosView extends VerticalLayout {
 
         });
 
-        editDialog.add(editTipoGastoSelect, editDataGanhoPicker, editValorGanhoField, saveButton);
+        editDialog.add(editTipoGanhosSelect, editDataGanhoPicker, editValorGanhoField, saveButton);
         editDialog.open();
     }
 
