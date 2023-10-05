@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class GanhoRepository {
-    private final List<Ganho> ganhos = new ArrayList<>();
+    private final List<Ganho> ganho = new ArrayList<>();
     public static Connection conexao;
 
 
@@ -17,7 +17,7 @@ public class GanhoRepository {
             conexao = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/BancoFinanceiro",
                     "root",
-                    "1234567"
+                    "@Ruth12345"
             );
             System.out.println("Conexão ao banco de dados estabelecida");
         } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class GanhoRepository {
             stmt.setString(1, ganhos.getTipo());
             stmt.setDate(2, Date.valueOf(ganhos.getData()));
             stmt.setDouble(3, ganhos.getValor());
-            stmt.setInt(5, ganhos.getId());
+            stmt.setInt(4, ganhos.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

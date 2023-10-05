@@ -17,7 +17,7 @@ public class GastoRepository {
             conexao = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/BancoFinanceiro",
                     "root",
-                    "1234567"
+                    "@Ruth12345"
             );
             System.out.println("Conexão ao banco de dados estabelecida");
         } catch (SQLException e) {
